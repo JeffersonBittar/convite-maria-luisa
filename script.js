@@ -64,7 +64,7 @@ async function generateMermaidName() {
         return;
     }
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
 
     const prompt = `Você é um oráculo mágico do fundo do mar (estilo Disney, Pequena Sereia). O nome do convidado é "${name}". 
     Crie:
@@ -121,7 +121,7 @@ function createBubbles() {
         const size = Math.random() * 30 + 10 + 'px';
         bubble.style.width = size;
         bubble.style.height = size;
-        bubble.style.left = Math.random() * 100 + 'vw';
+        bubble.style.left = Math.random() * 95 + 'vw'; /* Alterado de 100vw para 95vw para evitar overflow */
         bubble.style.animationDuration = Math.random() * 8 + 5 + 's';
         bubble.style.animationDelay = Math.random() * 5 + 's';
         ocean.appendChild(bubble);
