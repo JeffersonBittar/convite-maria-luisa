@@ -1,34 +1,3 @@
-17 lines
-Find in logs
-CtrlF
-23:08:26.196 
-Running build in Washington, D.C., USA (East) – iad1
-23:08:26.197 
-Build machine configuration: 2 cores, 8 GB
-23:08:26.353 
-Cloning github.com/JeffersonBittar/convite-maria-luisa (Branch: main, Commit: 05910c5)
-23:08:26.354 
-Previous build caches not available.
-23:08:32.742 
-Cloning completed: 6.389s
-23:08:33.901 
-Running "vercel build"
-23:08:34.403 
-Vercel CLI 48.12.0
-23:08:35.168 
-Installing dependencies...
-23:08:37.883 
-23:08:37.884 
-up to date in 2s
-23:08:37.920 
-Running "npm run build"
-23:08:38.062 
-23:08:38.063 
-> build
-23:08:38.063 
-> sed -i "s|__GEMINI_API_KEY__|${GEMINI_API_KEY}|g" script.js
-23:08:38.064 
-23:08:38.089 
-Error: No Output Directory named "public" found after the Build completed. Configure the Output Directory in your Project Settings. Alternatively, configure vercel.json#outputDirectory.
-23:08:38.090 
-Learn More: https://vercel.link/missing-public-directory
+PS C:\Users\Jefferson Bittar\Desktop\Aniversario Maria Luisa> git commit -m "chore: Remove package.json, build command now set directly on Vercel"
+On branch main
+Your branch is up to date with 'origin/main'.

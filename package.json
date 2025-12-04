@@ -1,5 +1,0 @@
-{
-  "scripts": {
-    "build": "sed -i \"s|__GEMINI_API_KEY__|${GEMINI_API_KEY}|g\" script.js"
-  }
-}
