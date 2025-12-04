@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite de Aniversário - Maria Luisa</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS Variables --- */
+        :root {
+            --primary-teal: #00b4d8;
+            --deep-blue: #023e8a;
+            --ariel-purple: #7b2cbf;
+            --ariel-red: #ef233c;
+            --sand-gold: #ffd60a;
+            --coral-pink: #ff758f;
+            --coral-orange: #ffb703;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #023e8a; /* Cor de segurança */
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* --- Dynamic Ocean Background --- */
+        #ocean-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(to top, #00b4d8, #023e8a);
+            background-size: 100% 200%;
+            animation: gradient-flow 15s ease-in-out infinite alternate;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -50px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation-name: rise;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes gradient-flow {
+            from { background-position: 0% 100%; }
+            to { background-position: 0% 0%; }
+        }
+
+        @keyframes rise {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-110vh);
+                opacity: 0;
+            }
+        }
+
+        /* Overlay suave para melhorar leitura do texto sobre a imagem */
+        .bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 40, 80, 0.3); /* Azul escuro transparente */
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* --- Main Card Container --- */
+        .card-container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.92); 
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 30px 20px;
+            box-shadow: 0 15px 40px rgba(0, 10, 30, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            border: 4px solid var(--primary-teal);
+            text-align: center;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .card-container.visible {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Scrollbar styling for card */
+        .card-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .card-container::-webkit-scrollbar-thumb {
+            background-color: var(--primary-teal);
+            border-radius: 10px;
+        }
+
+        /* --- Ornamental Elements --- */
+        .shell-decor {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            fill: var(--ariel-purple);
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            z-index: 20;
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            color: var(--ariel-purple);
+            font-size: 3.5rem;
+            margin: 10px 0 5px;
+            text-shadow: 2px 2px 0px #fff, 0 0 10px rgba(123, 44, 191, 0.3);
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-family: 'Quicksand', sans-serif;
+            color: var(--deep-blue);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        /* --- Photo Area --- */
+        .photo-frame-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+        }
+
+        .photo-frame {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid var(--sand-gold);
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            background: #fff;
+        }
+
+        #user-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .pearl-border {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50%;
+            border: 2px dashed var(--ariel-purple);
+            animation: spin 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* --- Info Section --- */
+        .info-box {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+        }
+
+        .info-row {
+            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+
+        .info-row i {
+            color: var(--ariel-red);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .info-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--deep-blue);
+        }
+
+        .info-subtext {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .footer-msg {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+            color: var(--ariel-purple);
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* --- AI Feature Styling --- */
+        .ai-feature-container {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px dashed rgba(0, 180, 216, 0.3);
+        }
+
+        .ai-btn {
+            background: linear-gradient(45deg, var(--ariel-purple), #9d4edd);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(123, 44, 191, 0.3);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .ai-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(123, 44, 191, 0.5);
+            background: linear-gradient(45deg, #9d4edd, var(--ariel-purple));
+        }
+
+        .ai-result-box {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            border: 2px solid var(--sand-gold);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .ai-input-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+            display: none; /* Hidden by default until button click */
+        }
+
+        .ai-input {
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid var(--primary-teal);
+            font-family: 'Quicksand', sans-serif;
+            width: 60%;
+            outline: none;
+        }
+
+        .ai-input:focus {
+            border-color: var(--ariel-purple);
+            box-shadow: 0 0 0 2px rgba(123, 44, 191, 0.1);
+        }
+
+        .loading-bubbles span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-teal);
+            border-radius: 50%;
+            animation: bounce 0.6s infinite alternate;
+            margin: 0 2px;
+        }
+        .loading-bubbles span:nth-child(2) { animation-delay: 0.2s; background: var(--ariel-purple); }
+        .loading-bubbles span:nth-child(3) { animation-delay: 0.4s; background: var(--ariel-red); }
+
+        @keyframes bounce { to { transform: translateY(-10px); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Controls --- */
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .music-btn {
+            background: #fff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            color: var(--deep-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+        .music-btn:hover { transform: scale(1.1); }
+
+        /* --- Entrance Overlay --- */
+        #entrance-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--deep-blue), var(--primary-teal));
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            transition: opacity 0.8s;
+        }
+
+        #entrance-overlay h1 {
+            animation: fadeInUp 1.5s ease-out, text-shimmer 3s infinite alternate;
+        }
+
+        .open-btn {
+            margin-top: 30px;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            font-family: 'Great Vibes', cursive;
+            background: var(--sand-gold);
+            color: var(--deep-blue);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 214, 10, 0.6);
+            animation: pulse 2s infinite;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes text-shimmer {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 214, 10, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 214, 10, 0.8);
+            }
+            100% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 214, 10, 0.5);
+            }
+        }
+
+        /* Hidden Input for file upload */
+        #file-input {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 400px) {
+            h1 { font-size: 3rem; }
+            .card-container { width: 95%; padding: 20px 10px; }
+            .ai-input { width: 100%; }
+            .ai-input-group { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Entrance Screen -->
+    <div id="entrance-overlay">
+        <h1 style="color: white; text-align:center;">Um convite mágico do fundo do mar te espera!</h1>
+        <button class="open-btn" onclick="openInvitation()">
+            <i class="fas fa-water"></i> Abrir Convite
+        </button>
+    </div>
+
+    <!-- Music Control -->
+    <div class="controls">
+        <button class="music-btn" id="music-toggle" onclick="toggleMusic()">
+            <i class="fas fa-volume-up"></i>
+        </button>
+    </div>
+
+    <!-- Background Layers -->
+    <div id="ocean-background"></div>
+    <div class="bg-overlay"></div>
+
+    <!-- Main Card -->
+    <div class="card-container" id="invitation-card">
+        <svg class="shell-decor" viewBox="0 0 512 512">
+            <path d="M256 0c-45.6 0-88.7 15.6-124 41.2C65 89.2 24 153.9 24 224c0 30.2 7.8 59.8 22.8 86.8c-2.8 6.5-5.1 13.3-6.8 20.4c-4.4 18.2 9.1 36.8 27.9 36.8l176 0 176 0c18.7 0 32.2-18.6 27.9-36.8c-1.7-7.1-4-13.9-6.8-20.4C480.2 283.8 488 254.2 488 224c0-70.1-41-134.8-108-182.8C344.7 15.6 301.6 0 256 0zM108 261.2c-15.6-11.2-24-29.8-21.8-49.4C90 177.3 120.9 146.9 154.5 125c19.1-12.4 44.5-9 59.7 8c15.2 16.9 14.1 43-4.2 59c-30.8 27-66.8 56.4-102 69.2zm108.6-89.9c16.5-12.2 40.1-9.9 55.4 5.4c25.6 25.6 42.4 59.9 52 95.8c-30.7 7.5-62.3 8.3-89.3-18.6c-20.1-20.1-25.2-51.5-18.1-82.6zM288 384l-64 0-64 0 0 48c0 17.7 14.3 32 32 32l96 0c17.7 0 32-14.3 32-32l0-48z"/>
+        </svg>
+
+        <h1>Maria Luisa</h1>
+        <h2>Convite para festa de 5 anos</h2>
+
+        <div class="photo-frame-container">
+            <div class="pearl-border"></div>
+            <div class="photo-frame">
+                <img id="user-photo" src="malu.jpeg" alt="Foto da Maria Luisa" style="display: block; width: 100%; height: 100%; object-fit: cover;">
+            </div>
+        </div>
+
+        <div class="info-box">
+            <div class="info-row">
+                <i class="far fa-calendar-alt"></i>
+                <span class="info-text">03/01/26</span>
+                <span class="info-subtext">Às 13hs</span>
+            </div>
+            
+            <div class="info-row">
+                <i class="fas fa-map-marker-alt"></i>
+                <span class="info-text">Salão Vamos</span>
+                <span class="info-subtext">Rua Quinze de Novembro, 533</span>
+            </div>
+        </div>
+
+        <p class="footer-msg">Espero você lá no fundo do mar!</p>
+
+        <!-- Gemini Powered Feature -->
+        <div class="ai-feature-container">
+            <button class="ai-btn" onclick="toggleAiInput()" id="start-ai-btn">
+                <i class="fas fa-magic"></i> Descubra seu Nome de Sereia ✨
+            </button>
+
+            <div class="ai-input-group" id="ai-input-group">
+                <input type="text" id="guest-name" class="ai-input" placeholder="Digite seu nome..." onkeypress="handleEnter(event)">
+                <button class="ai-btn" style="padding: 10px 20px; font-size: 0.9rem;" onclick="generateMermaidName()">
+                    Criar
+                </button>
+            </div>
+
+            <div class="ai-result-box" id="ai-result">
+                <!-- Result will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Element -->
+    <audio id="bg-music" loop>
+        <source src="Psereia.mp3" type="audio/mp3">
+        Seu navegador não suporta áudio.
+    </audio>
+
+    <script>
+        // --- Interaction Logic ---
+        const audio = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('music-toggle');
+        const icon = musicBtn.querySelector('i');
+        let isPlaying = false;
+
+        function openInvitation() {
+            const overlay = document.getElementById('entrance-overlay');
+            const card = document.getElementById('invitation-card');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                card.classList.add('visible');
+            }, 800);
+            toggleMusic();
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                icon.classList.remove('fa-volume-up');
+                icon.classList.add('fa-volume-mute');
+                isPlaying = false;
+            } else {
+                audio.play().then(() => {
+                    icon.classList.remove('fa-volume-mute');
+                    icon.classList.add('fa-volume-up');
+                    isPlaying = true;
+                }).catch(e => console.error("Audio Error:", e));
+            }
+        }
+
+        // --- Gemini AI Logic (Online Only) ---
+        function toggleAiInput() {
+            const group = document.getElementById('ai-input-group');
+            const btn = document.getElementById('start-ai-btn');
+            group.style.display = 'flex';
+            btn.style.display = 'none';
+            document.getElementById('guest-name').focus();
+        }
+
+        function handleEnter(e) {
+            if (e.key === 'Enter') generateMermaidName();
+        }
+
+        async function generateMermaidName() {
+            const nameInput = document.getElementById('guest-name');
+            const resultBox = document.getElementById('ai-result');
+            const name = nameInput.value.trim();
+
+            if (!name) return;
+
+            // UI Loading State
+            resultBox.style.display = 'block';
+            resultBox.innerHTML = '<div class="loading-bubbles"><span></span><span></span><span></span></div><p style="margin-top:5px; font-size:0.9rem; color:#666;">Consultando as conchas mágicas...</p>';
+
+            // API Key Injection
+            const apiKey = "AIzaSyBpFLav5wyYrhMAcUTJr78xIFyXfjt_moY";
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+
+            const prompt = `Você é um oráculo mágico do fundo do mar (estilo Disney, Pequena Sereia). O nome do convidado é "${name}". 
+            Crie:
+            1. Um "Nome de Sereia/Tritão" majestoso ou divertido baseado no nome dele (ex: "Marina das Marés", "João dos Corais").
+            2. Uma frase curta e mágica descrevendo o poder especial dele no oceano.
+            Responda em Português, tom alegre e infantil. Use emojis.
+            Não use formatação Markdown pesada, apenas texto simples e quebras de linha.`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }]
+                    })
+                });
+
+                if (!response.ok) throw new Error('Falha na API');
+
+                const data = await response.json();
+                const aiText = data.candidates[0].content.parts[0].text;
+                
+                // Display Result
+                resultBox.innerHTML = `
+                    <h3 style="color:var(--ariel-purple); font-family:'Great Vibes', cursive; font-size:1.8rem;">${name}, a sua identidade secreta é...</h3>
+                    <p style="color:var(--deep-blue); font-size:1.1rem; line-height:1.5; margin-top:10px; white-space: pre-wrap;">${aiText}</p>
+                    <button onclick="resetAi()" style="margin-top:15px; background:none; border:none; color:var(--primary-teal); text-decoration:underline; cursor:pointer;">Tentar outro nome</button>
+                `;
+
+            } catch (error) {
+                console.error("Erro na API:", error);
+                resultBox.innerHTML = `<p style="color:red;">Oh não! Um tubarão comeu o cabo da internet. Verifique a sua conexão e tente novamente!</p>`;
+            }
+        }
+
+        function resetAi() {
+            document.getElementById('ai-result').style.display = 'none';
+            document.getElementById('ai-input-group').style.display = 'none';
+            document.getElementById('start-ai-btn').style.display = 'inline-flex';
+            document.getElementById('guest-name').value = '';
+        }
+
+        function createBubbles() {
+            const ocean = document.getElementById('ocean-background');
+            const bubbleCount = 25;
+
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                const size = Math.random() * 30 + 10 + 'px';
+                bubble.style.width = size;
+                bubble.style.height = size;
+                bubble.style.left = Math.random() * 100 + 'vw';
+                bubble.style.animationDuration = Math.random() * 8 + 5 + 's';
+                bubble.style.animationDelay = Math.random() * 5 + 's';
+                ocean.appendChild(bubble);
+            }
+        }
+
+        createBubbles();
+    </script>
+</body>
+</html>
