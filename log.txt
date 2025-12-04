@@ -1,0 +1,7 @@
+PS C:\Users\Jefferson Bittar\Desktop\Aniversario Maria Luisa> git pull origin main --allow-unrelated-histories
+From https://github.com/JeffersonBittar/convite-maria-luisa
+ * branch            main       -> FETCH_HEAD
+Auto-merging index.html
+CONFLICT (add/add): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.
+PS C:\Users\Jefferson Bittar\Desktop\Aniversario Maria Luisa> 
